@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Firehose resources relating to statistics generation.
+  Repository - https://github.com/your_repository.
+
+Parameters:
+  Environment:
+    AllowedValues:
+      - staging
+      - production
+    Description: Target environment
+    Type: String
+    Default: 'staging'
+
+Resources:
+  MyKinesisStream:
+    Type: AWS::Kinesis::Stream
+    Properties: 
+      Name: !Sub 'temus-vendor-data-${Environment}'
+      RetentionPeriodHours: 24 
+      StreamModeDetails:
+        StreamMode: ON_DEMAND
+      # ShardCount: 1
+      Tags: 
+        -
+          Key: Environment
+          Value: Production
